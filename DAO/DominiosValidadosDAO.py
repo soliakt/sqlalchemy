@@ -3,6 +3,7 @@ from typing import List
 
 from DTO.BulkDominiosDTO import BulkDominiosDTO
 from models.BulkDominios import BulkDominios
+from models.DominiosValidados import DominiosValidados
 
 
 class DominiosValidadosDAO:
@@ -20,6 +21,20 @@ class DominiosValidadosDAO:
         return dominiosDTO
 
 
-    def insertDomains(self, listDomains):
-        return None
-    #TODO: itera la lista y cada dominio, comprueba que tiene campo email y si lo tiene, lo insertas en BBBDD
+    def insertDomains(self, bulkDomainsListDTO):
+        if not bulkDomainsListDTO:
+            print("La lista está vacía")
+        for bulkDomain in bulkDomainsListDTO:
+            if bulkDomain.email is not None:
+                dominioValidado = DominiosValidados(
+                    id = bulkDomain.id,
+                    email = bulkDomain.email,
+                    fechaExpiracion = bulkDomain.fecha_expiracion,
+                    fechaCreacion = bulkDomain.fecha_creacion,
+                    propietario = bulkDomain.propietario,
+                    proveedor = bulkDomain.proveedor,
+                    importe = bulkDomain.importe,
+                    dominio = bulkDomain.dominio
+                )
+                self.session.add(dominioValidado)
+        self.session.commit()

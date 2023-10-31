@@ -17,3 +17,6 @@ class DominiosValidados(Base):
     proveedor = Column(String(40), nullable = True)
     importe = Column(Float, nullable = True)
     dominio = Column(String(40), nullable = True)
+
+    def __str__(self):
+        return self.id
