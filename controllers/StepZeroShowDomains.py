@@ -1,9 +1,6 @@
-from models.Dominios import Dominios
-
-
 from constants.DatabaseManager import DatabaseManager
-from DAO.DominiosDAO import DominiosDAO
 from services import BLService # Como no es una clase no se hace el .
+from DAO.BulkDominiosDAO import BulkDominiosDAO
 
 if __name__ == '__main__':
 

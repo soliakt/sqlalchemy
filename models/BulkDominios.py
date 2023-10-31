@@ -6,7 +6,7 @@ from sqlalchemy import Column, Integer, String, DateTime, Float
 Base = declarative_base() # Esto hace que sqlalchemy sepa que es una tabla
 
 
-class Dominios(Base):
+class BulkDominios(Base):
     __tablename__ = 'Dominios'
 
     id = Column(Integer, primary_key = True, autoincrement = True)

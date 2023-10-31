@@ -1,8 +1,7 @@
-from models.Dominios import Dominios
 from dataclasses import dataclass
 
 @dataclass
-class DominiosDTO:
+class BulkDominiosDTO:
     def __init__(self, id, email, fecha_creacion, fecha_expiracion, propietario, proveedor, importe, dominio):
         self.id = id
         self.email = email
@@ -31,4 +30,4 @@ class DominiosDTO:
         return cls(**model_dict) # los ** que es?
 
     def to_model(self):
-        return DominiosDTO(**self.__dict__)
+        return BulkDominiosDTO(**self.__dict__)
