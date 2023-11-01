@@ -11,12 +11,12 @@ class BulkDominios(Base):
 
     id = Column(Integer, primary_key = True, autoincrement = True)
     email = Column(String(40), nullable = False)
-    fechaCreacion = Column(DateTime, nullable = True)
-    fechaExpiracion = Column(DateTime, nullable = True)
-    propietario = Column(String(40), nullable = True)
-    proveedor = Column(String(40), nullable = True)
-    importe = Column(Float, nullable = True)
-    dominio = Column(String(40), nullable = True)
+    fechaCreacion = Column(DateTime, nullable = False)
+    fechaExpiracion = Column(DateTime, nullable = False)
+    propietario = Column(String(40), nullable = False)
+    proveedor = Column(String(40), nullable = False)
+    importe = Column(Float, nullable = False)
+    dominio = Column(String(40), nullable = False)
 
     def __str__(self):
         return self.id
