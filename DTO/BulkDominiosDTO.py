@@ -2,11 +2,11 @@ from dataclasses import dataclass
 
 @dataclass
 class BulkDominiosDTO:
-    def __init__(self, id, email, fecha_creacion, fecha_expiracion, propietario, proveedor, importe, dominio):
+    def __init__(self, id, email, fechaCreacion, fechaExpiracion, propietario, proveedor, importe, dominio):
         self.id = id
         self.email = email
-        self.fecha_creacion = fecha_creacion
-        self.fecha_expiracion = fecha_expiracion
+        self.fechaCreacion = fechaCreacion
+        self.fechaExpiracion = fechaExpiracion
         self.propietario = propietario
         self.proveedor = proveedor
         self.importe = importe
@@ -20,8 +20,8 @@ class BulkDominiosDTO:
         model_dict = {
             "id": model.id if hasattr(model, 'id') else None,
             "email": model.email,
-            "fecha_creacion": model.fechaCreacion,
-            "fecha_expiracion": model.fechaExpiracion,
+            "fechaCreacion": model.fechaCreacion,
+            "fechaExpiracion": model.fechaExpiracion,
             "propietario": model.propietario,
             "proveedor": model.proveedor,
             "importe": model.importe,

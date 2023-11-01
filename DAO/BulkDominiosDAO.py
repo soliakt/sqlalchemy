@@ -20,6 +20,28 @@ class BulkDominiosDAO:
         return dominiosDTO
 
 
-    def insertDomains(self, listDomains):
-        return None
+    def insertDomainsIntoBulkBBDD(self, bulkDomainsList) -> None:
     #TODO: itera la lista y cada dominio, comprueba que tiene campo email y si lo tiene, lo insertas en BBBDD
+        contadorDominiosInsertados = 0
+        try:
+            if not bulkDomainsList:
+                print("La lista está vacía")
+            for bulkDomain in bulkDomainsList:
+                if bulkDomain.email is not None:
+                    bulkDomainIn = BulkDominios(
+                        id = bulkDomain.id,
+                        email = bulkDomain.email,
+                        fechaExpiracion = bulkDomain.fechaExpiracion,
+                        fechaCreacion = bulkDomain.fechaCreacion,
+                        propietario = bulkDomain.propietario,
+                        proveedor = bulkDomain.proveedor,
+                        importe = bulkDomain.importe,
+                        dominio = bulkDomain.dominio
+                    )
+                    self.session.add(bulkDomainIn)
+                    contadorDominiosInsertados += 1
+            # Obvio pero: aqui tratamos con DAOs en lugar de DTOs porque es relacion directamente con la BBDD
+            self.session.commit()
+            print(f"Se han insertado con éxito {contadorDominiosInsertados} registros")
+        except Exception as e:
+            print(f"Error al insertar dominios en la base de datos: {str(e)}") # Hacemos el parseString porque sino devolveria la excepcion como un objeto en lugar de texto 

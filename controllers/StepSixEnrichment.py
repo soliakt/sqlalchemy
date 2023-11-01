@@ -8,5 +8,4 @@ if __name__ == '__main__':
     BLService.init_Services(db_manager) # Esto te crea todo el contenido del init_Services
     # Y te crea el servicio, ya que está dentro del init
 
-    bulkDomainsList = BLService.domains_process_service.dao.getAllBulkDomains()
-    BLService.domains_process_service.dao.insertDomains(bulkDomainsList)
+    BLService.dominios_service.createAndInsertDomains()
