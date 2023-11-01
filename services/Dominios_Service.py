@@ -42,8 +42,8 @@ class Dominios_Service:
         listaDominiosAInsertar.append(dominio2)
 
         dominio3 = BulkDominios(
-            dominio = "mercadona.com",
-            email = "contact@mercadona.com",
+            dominio = "mercadona.es",
+            email = "contact@mercadona.es",
             fechaCreacion = datetime(2022, 2, 10),
             fechaExpiracion = datetime(2023, 2, 10),
             propietario = "Mark Johnson",

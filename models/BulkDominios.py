@@ -10,7 +10,7 @@ class BulkDominios(Base):
     __tablename__ = 'BulkDomains'
 
     id = Column(Integer, primary_key = True, autoincrement = True)
-    email = Column(String(40), nullable = True)
+    email = Column(String(40), nullable = False)
     fechaCreacion = Column(DateTime, nullable = True)
     fechaExpiracion = Column(DateTime, nullable = True)
     propietario = Column(String(40), nullable = True)

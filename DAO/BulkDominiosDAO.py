@@ -18,16 +18,45 @@ class BulkDominiosDAO:
             dominiosDTO.append(BulkDominiosDTO.from_model(dominioDAO)) # Aqui se hace la transformacion de DAO a DTO
         
         return dominiosDTO
+    
+    def checkDomainsCorrectness(self, bulkDomainsList) -> bool:
+        bool = True
+        if not bulkDomainsList:
+            print("La lista está vacía")
+        for bulkDomain in bulkDomainsList:
+            if not bulkDomain.email:
+                bool = False
+                raise ValueError(f"El campo 'email' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
+            if not bulkDomain.dominio:
+                bool = False
+                raise ValueError(f"El campo 'dominio' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
+            if bulkDomain.importe is None or bulkDomain.importe < 0:
+                bool = False
+                raise ValueError(f"El campo 'importe' no es válido. Fallo en dominio con email: {bulkDomain.email}")
+            if bulkDomain.fechaCreacion is None:
+                bool = False
+                raise ValueError(f"El campo 'fechaCreacion' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
+            if bulkDomain.fechaExpiracion is None:
+                bool = False
+                raise ValueError(f"El campo 'fechaExpiracion' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email} ")
+            if bulkDomain.fechaCreacion > bulkDomain.fechaExpiracion:
+                bool = False
+                raise ValueError(f"La fecha de creación debe ser anterior a la fecha de expiración. Fallo en dominio con email: {bulkDomain.email}")
+            if not bulkDomain.propietario:
+                bool = False
+                raise ValueError(f"El campo 'propietario' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
+            if not bulkDomain.proveedor:
+                bool = False
+                raise ValueError(f"El campo 'proveedor' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
+        return bool
 
 
     def insertDomainsIntoBulkBBDD(self, bulkDomainsList) -> None:
     #TODO: itera la lista y cada dominio, comprueba que tiene campo email y si lo tiene, lo insertas en BBBDD
-        contadorDominiosInsertados = 0
-        try:
-            if not bulkDomainsList:
-                print("La lista está vacía")
-            for bulkDomain in bulkDomainsList:
-                if bulkDomain.email is not None:
+        if self.checkDomainsCorrectness(bulkDomainsList) == True:
+            contadorDominiosInsertados = 0
+            try:
+                for bulkDomain in bulkDomainsList:
                     bulkDomainIn = BulkDominios(
                         id = bulkDomain.id,
                         email = bulkDomain.email,
@@ -40,8 +69,8 @@ class BulkDominiosDAO:
                     )
                     self.session.add(bulkDomainIn)
                     contadorDominiosInsertados += 1
-            # Obvio pero: aqui tratamos con DAOs en lugar de DTOs porque es relacion directamente con la BBDD
-            self.session.commit()
-            print(f"Se han insertado con éxito {contadorDominiosInsertados} registros")
-        except Exception as e:
-            print(f"Error al insertar dominios en la base de datos: {str(e)}") # Hacemos el parseString porque sino devolveria la excepcion como un objeto en lugar de texto 
+                # Obvio pero: aqui tratamos con DAOs en lugar de DTOs porque es relacion directamente con la BBDD
+                self.session.commit()
+                print(f"Se han insertado con éxito {contadorDominiosInsertados} registros")
+            except Exception as e:
+                print(f"Error al insertar dominios en la base de datos: {str(e)}") # Hacemos el parseString porque sino devolveria la excepcion como un objeto en lugar de texto 
