@@ -20,35 +20,26 @@ class BulkDominiosDAO:
         return dominiosDTO
     
     def checkDomainsCorrectness(self, bulkDomainsList) -> bool:
-        bool = True
         if not bulkDomainsList:
             print("La lista está vacía")
         for bulkDomain in bulkDomainsList:
             if not bulkDomain.email:
-                bool = False
                 raise ValueError(f"El campo 'email' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
             if not bulkDomain.dominio:
-                bool = False
                 raise ValueError(f"El campo 'dominio' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
             if bulkDomain.importe is None or bulkDomain.importe < 0:
-                bool = False
                 raise ValueError(f"El campo 'importe' no es válido. Fallo en dominio con email: {bulkDomain.email}")
             if bulkDomain.fechaCreacion is None:
-                bool = False
                 raise ValueError(f"El campo 'fechaCreacion' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
             if bulkDomain.fechaExpiracion is None:
-                bool = False
                 raise ValueError(f"El campo 'fechaExpiracion' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email} ")
             if bulkDomain.fechaCreacion > bulkDomain.fechaExpiracion:
-                bool = False
                 raise ValueError(f"La fecha de creación debe ser anterior a la fecha de expiración. Fallo en dominio con email: {bulkDomain.email}")
             if not bulkDomain.propietario:
-                bool = False
                 raise ValueError(f"El campo 'propietario' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
             if not bulkDomain.proveedor:
-                bool = False
                 raise ValueError(f"El campo 'proveedor' no puede estar vacío. Fallo en dominio con email: {bulkDomain.email}")
-        return bool
+        return True
 
 
     def insertDomainsIntoBulkBBDD(self, bulkDomainsList) -> None:
